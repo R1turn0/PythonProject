@@ -19,6 +19,7 @@ conda create -n py35-32 python=3.5.4
 python build.py 
 ```
 
+### PS：
 Pyinstall打包后的程序不显示终端
 ```
 方法一：pyinstaller -F mycode.py --noconsole

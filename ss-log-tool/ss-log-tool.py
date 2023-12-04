@@ -258,19 +258,19 @@ class App:
             for proxy_element in xml_root.iter('PROXY'):
                 type_element = proxy_element.find('TYPE')
                 if type_element is not None and type_element.text == 'NONE':
-                    output = f"Proxy type is \"NONE\""
+                    output = "Proxy type is \"NONE\"".format()
                     self.log_output.insert(tk.END, '{}\n'.format(output))
                 elif type_element is not None:
-                    output = f"Proxy type is \"{type_element.text}\""
+                    output = "Proxy type is \"{type_element.text}\"".format(type_element.text)
                     self.log_output.insert(tk.END, '{}\n'.format(output))
 
             for server_element in xml_root.iter('SERVER'):
                 allow_mode_element = server_element.find('ALLOW_MODE')
                 if allow_mode_element is not None and allow_mode_element.text == 'ALLOW_ALL':
-                    output = f"Allow mode is \"ALLOW_ALL\""
+                    output = "Allow mode is \"ALLOW_ALL\"".format()
                     self.log_output.insert(tk.END, '{}\n'.format(output))
                 elif allow_mode_element is not None:
-                    output = f"Allow mode is \"{locale_text.get(allow_mode_element.text, allow_mode_element.text)}\""
+                    output = "Allow mode is \"{}\"".format(locale_text.get(allow_mode_element.text, allow_mode_element.text))
                     # output = f"Allow mode is \"{allow_mode_element.text}\""
                     self.log_output.insert(tk.END, '{}\n'.format(output))
         except ET.ParseError as check_server_config_error:
@@ -339,16 +339,16 @@ class App:
                         license_concurrent = license_info.get('concurrent', 'N/A')
 
                         output_parts = [
-                            f"License ID: {license_info.get('license_id', 'N/A')}",
-                            f"Enable Status: {license_info.get('enable', 'N/A')}"
+                            "License ID: {}".format(license_info.get('license_id', 'N/A')),
+                            "Enable Status: {}".format(license_info.get('enable', 'N/A'))
                         ]
 
                         if license_concurrent == 0:
                             output_parts += ["Concurrent Type: local"]
                         else:
                             output_parts += [
-                                f"Concurrent Type: {license_info.get('concurrent_type', 'N/A')}",
-                                f"Concurrent: {license_info.get('concurrent', 'N/A')}"
+                                "Concurrent Type: {}".format(license_info.get('concurrent_type', 'N/A')),
+                                "Concurrent: {}".format(license_info.get('concurrent', 'N/A'))
                             ]
 
                         output_str = '  '.join(['{:<{}}'.format(part, len(part) + 1) for part in output_parts])
@@ -387,19 +387,20 @@ class App:
 
             # 执行 ping 命令
             self.log_output.insert(tk.END, '请等待返回结果...')
-            result = subprocess.run(["ping", "-n", "4", ip_address], text=True, check=True, capture_output=True)
+            result = subprocess.run(["C:\\Windows\\System32\\ping.exe", "-n", "4", ip_address], check=True,
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
             if result.returncode == 0:
-                output = f"{ip_address} is reachable."
+                output = "{} is reachable.".format(ip_address)
             else:
-                output = f"{ip_address} is unreachable."
+                output = "{} is unreachable.".format(ip_address)
 
             # 使用主线程更新 GUI
             self.log_output.insert(tk.END, '{}\n'.format(output))
             self.log_output.see(tk.END)
 
         except subprocess.CalledProcessError as e:
-            output = f"{ip_address} is unreachable."
+            output = "{} is unreachable.".format(ip_address)
             self.log_output.insert(tk.END, '{}\n'.format(output))
             self.log_output.insert(tk.END, '{}\n'.format(str(e)))
             self.log_output.see(tk.END)

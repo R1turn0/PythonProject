@@ -18,9 +18,9 @@ def init_slm_control():
     print(archi[0])
     if platform.system() == "Windows":
         if archi[0] == '32bit':
-            control_dll_path = r'./x86/slm_control.dll'
+            control_dll_path = r'./dll/slm_control_x86.dll'
         elif archi[0] == '64bit':
-            control_dll_path = r'./x64/slm_control.dll'
+            control_dll_path = r'./dll/slm_control_x64.dll'
 
         slm_control = ctypes.cdll.LoadLibrary(control_dll_path)
 
