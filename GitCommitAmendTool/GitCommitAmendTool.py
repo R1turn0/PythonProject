@@ -65,8 +65,8 @@ def git_commit_amend(file_list, amend_date):
             counter += 1
             print(f"循环第 {counter} 次")
 
-            # 模拟键盘输入 "git add dll/"
-            pyautogui.typewrite("git add dll/")
+            # 模拟键盘输入 "git add "
+            pyautogui.typewrite("git add ")
 
             pyautogui.typewrite(file_list)
             # 模拟按下键盘的enter键
